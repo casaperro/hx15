@@ -231,7 +231,7 @@ tr#tu {
 }
 
 div.flecha{
-	background-color: lightgreen;
+	background-color: red;
 	border: 1px darkgrey;
 	width: 10px;
 	height: 10px;
@@ -256,7 +256,7 @@ div#results {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: url('/img/museum.jpg');
+	background: url('/img/museo.jpg');
 	background-size: 100% 100%;
 }
 

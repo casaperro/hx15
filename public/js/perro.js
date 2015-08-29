@@ -126,6 +126,7 @@ var divApp = (function(){
 	}
 
 	function startGame() {
+		currentUser = Parse.User.current(); 
 		currentUser.fetch().then(function (user){
 			showPage('nickname');
 			currentUserData = user;
