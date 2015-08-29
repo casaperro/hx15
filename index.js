@@ -17,11 +17,9 @@ app.get('/credits', function(req, res) {
 	res.sendFile(__dirname + '/credits.html');
 });
 
-app.get('/unlockPerro', function (req, res) {
+app.get('/unlockPerro', function(req, res) {
     res.sendFile(__dirname + '/unlockPerro.html');
 });
-
-unlockPerro.html
 
 //Constantes del juego
 var SCORE = 100;

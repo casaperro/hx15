@@ -271,22 +271,22 @@ var divApp = (function(){
 			// Controlar que no exista nadie con el mismo nickname y mostrar error
 			if (conectados.indexOf(nickname) !== -1) {
 				$('#error').slideDown(200);
-				return false;
+			} else {
+				getAvailableSculptures();
+				// para no hacer zoom!	
+				$(window).resize(function() {
+
+					// molestar con un alert
+					alert('¡No hagas zoom! - Este tiempo se utiliza para que todos puedan moverse y vos pierdas la partida. Gracias por leer esta alerta :)');
+					
+					// volver a calcular las coordenadas del campo de batallas
+					battleX = $('.battlefield').offset().left;
+					battleY = $('.battlefield').offset().top;
+
+				});
+
+				prepararInicio();
 			}
-
-			// para no hacer zoom!	
-			$(window).resize(function() {
-
-				// molestar con un alert
-				alert('¡No hagas zoom! - Este tiempo se utiliza para que todos puedan moverse y vos pierdas la partida. Gracias por leer esta alerta :)');
-				
-				// volver a calcular las coordenadas del campo de batallas
-				battleX = $('.battlefield').offset().left;
-				battleY = $('.battlefield').offset().top;
-
-			});
-
-			prepararInicio();
 		});
 		
 		// asignar evento click al boton de revivir
@@ -621,6 +621,7 @@ var divApp = (function(){
 			var relation = currentUserData.relation('unlockedSculture');
 			relation.query().count({
 				success: function(count) {
+					alert(count);
 					if (count) {
 						showPerro();
 					}
