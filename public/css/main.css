@@ -10,10 +10,14 @@ div#login {
 	width: 100vw;
 }
 
+div#login h1 {
+	font-size: 55px;
+	font-weight: bold;
+}
+
 div#nickname {
 	height: 100vh;
 	width: 100vw;
-	background: url('/img/menu.jpg') center center;
 	background-size: 100% 120%; 
 	overflow: hidden;
 	display: flex;
