@@ -15,21 +15,6 @@ var divApp = (function(){
 		startGame();
 	}
 
-	//obtener datos esculturas
-	var Escultura = Parse.Object.extend("Sculture");
-	var query = new Parse.Query(Escultura);
-	query.find({
-		success: function(data){
-			for (var i = 0; i < data.length; i++) {
-				arrayDivImage[i] = data[i].get('divImage').url;
-				$('div.image'+i).css('background-image','url(' + data[i].get('photo').url() + ')');
-			};
-		},
-		error: function(error) {
-			alert('No conectado a internet')
-		}
-	});
-
 	$('.image0').click(function () {
 		info(1);
 	});
@@ -352,6 +337,7 @@ var divApp = (function(){
 
 		$('button#ingresar').click(function(){
 			showPage('selectplayer');
+			getAvailableSculptures();
 		})
 
 		// Cuando se ingresa el nombre de usuario en el formulario de la pantalla principal
@@ -361,7 +347,7 @@ var divApp = (function(){
 			if (conectados.indexOf(nickname) !== -1) {
 				$('#error').slideDown(200);
 			} else {
-				getAvailableSculptures();
+				
 				// para no hacer zoom!	
 				$(window).resize(function() {
 
@@ -706,11 +692,12 @@ var divApp = (function(){
 		});
 
 		function getAvailableSculptures () {
-			$('div.doge').prop('disabled', true);
+			$('button#doge').prop('disabled', true);
 			var relation = currentUserData.relation('unlockedSculture');
 			relation.query().count({
 				success: function(count) {
 					if (count) {
+						console.log(count);
 						showPerro();
 					}
 				},
@@ -721,7 +708,7 @@ var divApp = (function(){
 		};
 
 		function showPerro() {
-			$('button.doge').prop('disabled', false);
+			$('button#doge').prop('disabled', false);
 		}
 	}
 
