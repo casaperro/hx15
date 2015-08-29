@@ -75,10 +75,12 @@ var divApp = (function(){
 	}
 
 	function startGame() {
-		showPage('nickname');
 		currentUser.fetch().then(function (user){
+			showPage('nickname');
 			currentUserData = user;
 			var name = currentUserData.get('username');
+			$('span#user-span').empty();
+			$('span#user-span').append(name);
 			game(name);
 		});
 	}
@@ -269,22 +271,22 @@ var divApp = (function(){
 			// Controlar que no exista nadie con el mismo nickname y mostrar error
 			if (conectados.indexOf(nickname) !== -1) {
 				$('#error').slideDown(200);
-				return false;
+			} else {
+				getAvailableSculptures();
+				// para no hacer zoom!	
+				$(window).resize(function() {
+
+					// molestar con un alert
+					alert('¡No hagas zoom! - Este tiempo se utiliza para que todos puedan moverse y vos pierdas la partida. Gracias por leer esta alerta :)');
+					
+					// volver a calcular las coordenadas del campo de batallas
+					battleX = $('.battlefield').offset().left;
+					battleY = $('.battlefield').offset().top;
+
+				});
+
+				prepararInicio();
 			}
-
-			// para no hacer zoom!	
-			$(window).resize(function() {
-
-				// molestar con un alert
-				alert('¡No hagas zoom! - Este tiempo se utiliza para que todos puedan moverse y vos pierdas la partida. Gracias por leer esta alerta :)');
-				
-				// volver a calcular las coordenadas del campo de batallas
-				battleX = $('.battlefield').offset().left;
-				battleY = $('.battlefield').offset().top;
-
-			});
-
-			prepararInicio();
 		});
 		
 		// asignar evento click al boton de revivir
@@ -613,6 +615,26 @@ var divApp = (function(){
 			puntajes = [];
 			puntaje = 0;
 		});
+
+		function getAvailableSculptures () {
+			$('div.doge').prop('disabled', true);
+			var relation = currentUserData.relation('unlockedSculture');
+			relation.query().count({
+				success: function(count) {
+					alert(count);
+					if (count) {
+						showPerro();
+					}
+				},
+				error: function(error) {
+					alert(Error)
+				}
+			});
+		};
+
+		function showPerro() {
+			$('div.doge').prop('disabled', false);
+		}
 	}
 
 })();
