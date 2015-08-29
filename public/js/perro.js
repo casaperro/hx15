@@ -615,6 +615,25 @@ var divApp = (function(){
 			puntajes = [];
 			puntaje = 0;
 		});
+
+		function getAvailableSculptures () {
+			$('div.doge').prop('disabled', true);
+			var relation = currentUserData.relation('unlockedSculture');
+			relation.query().count({
+				success: function(count) {
+					if (count) {
+						showPerro();
+					}
+				},
+				error: function(error) {
+					alert(Error)
+				}
+			});
+		};
+
+		function showPerro() {
+			$('div.doge').prop('disabled', false);
+		}
 	}
 
 })();
