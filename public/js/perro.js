@@ -75,10 +75,12 @@ var divApp = (function(){
 	}
 
 	function startGame() {
-		showPage('nickname');
 		currentUser.fetch().then(function (user){
+			showPage('nickname');
 			currentUserData = user;
 			var name = currentUserData.get('username');
+			$('span#user-span').empty();
+			$('span#user-span').append(name);
 			game(name);
 		});
 	}
