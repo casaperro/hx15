@@ -1,0 +1,242 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	overflow: hidden;
+}
+
+div#nickname {
+	height: 100vh;
+	width: 100vw;
+	background: url('/img/menu.jpg') center center;
+	background-size: 100% 120%; 
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+div#nickname div#form {
+	background-color: rgba(25,25,112,0.5);
+	box-shadow: 0px 0px 15px 5px midnightblue;
+	color: white;
+	text-align: center;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+div#nickname div#form div#theme-menu {
+	padding: 2px 0px 10px 0px;
+	box-shadow: 0px 0px 15px 5px darkgray;
+	background-color: darkcyan;
+}
+
+div#nickname div#form div#theme-menu select{
+	background: rgba(33, 0, 81, 0.2);
+	width: 268px;
+	padding: 5px;
+	font-size: 16px;
+	line-height: 1;
+	border: 0;
+	border-radius: 0;
+	height: 34px;
+	-webkit-appearance: none;
+	appearance: none;
+	background: url(http://www.grupo-orsa.com.mx/orsa_nuevo/grupo_orsa_flecha_menu.png) 98% / 8% no-repeat rgba(33, 0, 81, 0.2);
+}
+
+div#nickname div#form input#nickInput {
+	background: transparent;
+	border-width: 0 0 3px 0;
+	border-color: white;
+	color: white;
+	font-weight: bold;
+	padding: 5px;
+	text-align: center;
+
+}
+
+div#nickname div#form input#nickInput:focus {
+	outline: none;
+}
+
+div#nickname div#form button#ingresar,
+div#resultsMedio button#volverAJugar,
+div#nickname button.button {
+	background: darkcyan;
+	box-shadow: 0px 0px 2px 1px darkcyan;
+	color: white;
+	padding: 5px;
+	font-weight: bold;
+	border: none;
+}
+
+p#error {
+	font-weight: bold;
+	color: red;
+	font-size: 1.2em;
+}
+
+.fachero {
+	text-shadow: 0px 0px 6px cyan;
+}
+
+div#display {
+	height: 100vh;
+	width: 100vw;
+	background: url('/img/background.jpg');
+	background-size: 100% 100%;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+div.battlefield {
+	height: 600px;
+	width: 1000px;
+	box-shadow: 0px 0px 5px 3px white;
+	border-radius: 3px;
+	margin: auto;
+}
+
+button#revivirbtn{
+	display: block;
+	background-color: cornsilk;
+	border-style: hidden;
+	width: 100%;
+	height: 30px;
+	top: 0px;
+	left: 0px;
+	cursor: pointer;
+}
+
+div.divcito, div.dying {
+	background: red;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	top: 300px;
+	left: 300px;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	text-align: center;
+	cursor: default;
+	font-size: 0.70em;
+}
+
+div.divcito p, div.divcito h3, div.dying p, div.dying h3 {
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+div#usuarios {
+	position: absolute;
+	top: 50px;
+	right: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	background: darkslategrey;
+	border-radius: 5px;
+	color: white;
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+div#usuarios div {
+	margin: 5px;
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;	
+}
+
+div#usuarios h3,
+div#usuarios table,
+div#usuarios tr,
+div#usuarios td {
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;	
+} 
+
+tr#tu {
+	font-weight: bold;
+	font-style: italic;
+}
+
+div.flecha{
+	background-color: lightgreen;
+	border: 1px darkgrey;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	border-radius: 5px;
+	/*left: 0px;
+	top: 0px;*/
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	z-index:999;	
+}
+
+div#results {
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: url('/img/end.jpg');
+	background-size: 100% 100%;
+}
+
+div#resultsMedio {
+	background-color: rgba(25,25,112,0.5);
+	box-shadow: 0px 0px 15px 5px midnightblue;
+	color: white;
+	text-align: center;
+	padding: 20px;
+	border-radius: 5px;
+}
+
+table#resultsTable {
+	text-align: center;
+	font-weight: bold;
+	width: 100%;
+}
+
+table#resultsTable tr > td:nth-child(1) {
+	text-align: left;
+}
+
+table#resultsTable tr > td:nth-child(2) {
+	text-align: right;
+}
