@@ -67,7 +67,6 @@
 	    	</div>
 		</div>
 		<div id="nickname">
-			
 			<div id="form">
 				<h2 class="fachero">CLASH OF SCULPTURES</h2>
 				<div class="form-group">
@@ -76,7 +75,6 @@
 				<div class="form-group">
 					<button class="btn btn-primary" id="ingresar">Ingresar</button>
 				</div>
-				<p id="error" hidden>Usuario Existente</p>
 				<div class="form-group">
 					<button class="btn btn-primary" onclick="window.location.href='/credits'" class="button">Creditos</button>
 				</div>
@@ -85,12 +83,68 @@
 				</div>
 			</div>
 		</div>
+		<div id="selectplayer">
+			<div class="jumbotron" style="height:150px; padding-bottom: 0px; margin-bottom: 5px;">
+				<div class="container">
+					<h1 class="text-center">Elegí tu personaje!</h1>
+				</div>
+			</div>
+			<div class="container">
+				<div class="col-md-12">
+					<div class="row">
+						
+					</div>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="col-md-4">
+										<div class="image-profile" style="background-color:red; height:200px;"></div>
+									</div>
+									<div class="col-md-8">
+										<label>Nombre: </label> <span class="nombrejugador-span"></span>
+										<br>
+										<br>
+										<br>
+										<label>Descripción: </label> <span class="descripcionjugador-span"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3">
+							<div class="row">
+								<div class="col-sm-3">
+									<button class="image image0" id="doge" style="background-color:red" disabled="disabled"></button>
+								</div>
+								<div class="col-sm-3" >
+									<button class="image image1" style="background-color:red"></button>
+								</div>
+								<div class="col-sm-3" >
+									<button class="image image2" style="background-color:red"></button>
+								</div>
+								<div class="col-sm-3" >
+									<button class="image image3" style="background-color:red" disabled="disabled"></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<p id="error" hidden>Usuario Existente</p>
+							<button id="jugarya" class="btn btn-primary">Jugar Ya</button>
+						</div>
+					</div>
+				</div> 
+			</div>
+		</div>
 		<div id="display">
 			<div class="battlefield">
 			</div>
 			<div id="usuarios">
 				<div>
-					<button id="revivirbtn" type="button" value="Revivir">Revivir</button>
+					<button id="revivirbtn" type="btn btn-primary" value="Revivir">Revivir</button>
 					<h3>Time: <span id="relojleft">--</span></h3>
 					<h3>Conectados</h3>
 					<table id="usuariosUl">
@@ -103,7 +157,7 @@
 				<h2 class="fachero">¡¡GAME OVER!!</h2>
 				<h3 class="fachero">Resultados</h3>
 				<table id="resultsTable"></table>
-				<p><button id="volverAJugar">Volver a Jugar</button></p>
+				<div class="form-group"><button class="btn btn-default" id="volverAJugar">Volver a Jugar</button></div>
 			</div>
 		</div>
 		<script src="/js/perro.js"></script>

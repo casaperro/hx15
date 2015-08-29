@@ -30,6 +30,7 @@ var GAMELENGTH = 30000;
 var left = [];
 var top = [];
 var users = [];
+var pjs = [];
 var lifes = [];
 var scores = [];
 
@@ -46,7 +47,7 @@ io.on('connection', function(socket) {
 	console.log('[INFO - CONNECT] un usuario se ha conectado');
 	
 	// cuando el usuario se registro con su nickname
-	socket.on('ingresar', function(name) {
+	socket.on('ingresar', function(name, pj) {
 		
 		// ahora
 		var timeNow;
@@ -61,10 +62,11 @@ io.on('connection', function(socket) {
 		}
 
 		// cuando alguien se conecta, se envía todas las ubicaciones de los usuarios conectados y tiempo restante de juego
-		socket.emit('inicio', users, left, top, lifes, scores, timeLeft);
+		socket.emit('inicio', users, pjs, left, top, lifes, scores, timeLeft);
 		
 		// agregar al usuario en el arreglo
 		users.push(name);
+		pjs.push(pj);
 		// iniciar vida en 100
 		lifes.push(100);
 		// iniciarlizar scores
@@ -80,7 +82,7 @@ io.on('connection', function(socket) {
 		console.log('[INFO - CONNECT] "' + name + '" se ha conectado!');
 
 		// difundir evento de nuevo usuario conectado a todos los demas usuarios
-		socket.broadcast.emit('nuevo user', name);
+		socket.broadcast.emit('nuevo user', name, pj);
 
 		// inicio juego
 		if (users.length === 2) {
@@ -88,6 +90,7 @@ io.on('connection', function(socket) {
 			gameStart = new Date().getTime();
 			var gameTime = setTimeout(function(){
 				users = [];
+				pjs = [];
 				lifes = [];
 				scores = [];
 				top = [];
@@ -133,6 +136,7 @@ io.on('connection', function(socket) {
 		if (index > -1) {
 		    sockets.splice(index, 1);
 		    users.splice(index, 1);
+		    pjs.splice(index, 1);
 		    lifes.splice(index, 1);
 		    scores.splice(index, 1);
 		    left.splice(index, 1);
@@ -149,14 +153,14 @@ io.on('connection', function(socket) {
 		//Izquierda
 		if(code === 37) {
 			left = left - 20;
-			top = top + 45;
+			top = top + 95;
 			direc = "left";
 			sent = -1;
 		}
 		
 		//Arriba
 		if(code === 38) {
-			left = left + 45;
+			left = left + 95;
 			top = top - 20;
 			direc = "top";
 			sent = -1;
@@ -164,16 +168,16 @@ io.on('connection', function(socket) {
 		
 		//Derecha
 		if(code === 39) {
-			left = left + 110;
-			top = top + 45;
+			left = left + 210;
+			top = top + 95;
 			direc = "left";
 			sent = 1;
 		}
 		
 		//Abajo
 		if(code === 40) {
-			left = left + 45;
-			top = top + 110;
+			left = left + 95;
+			top = top + 210;
 			direc = "top";
 			sent = 1;
 		}
@@ -254,7 +258,7 @@ io.on('connection', function(socket) {
 	socket.on('reviviendo',function(username){
 		var i = users.indexOf(username);
 		lifes[i] = 100;
-		io.sockets.emit('reviviendo',username,left[i],top[i],scores[i]);
+		io.sockets.emit('reviviendo',username,pjs[i],left[i],top[i],scores[i]);
 	});
 
 	//Verificando ping

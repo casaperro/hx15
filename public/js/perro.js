@@ -8,9 +8,75 @@ var divApp = (function(){
 	// Inicializar variables
 	var currentUser = Parse.User.current(); // Usuario actual (en localstorage)
 	var currentUserData; // Datos completos del usuario
+	var arrayDivImage = [];
+	var pj;
 
 	if (currentUser) {
 		startGame();
+	}
+
+	//obtener datos esculturas
+	var Escultura = Parse.Object.extend("Sculture");
+	var query = new Parse.Query(Escultura);
+	query.find({
+		success: function(data){
+			for (var i = 0; i < data.length; i++) {
+				arrayDivImage[i] = data[i].get('divImage').url;
+				$('div.image'+i).css('background-image','url(' + data[i].get('photo').url() + ')');
+			};
+		},
+		error: function(error) {
+			alert('No conectado a internet')
+		}
+	});
+
+	$('.image0').click(function () {
+		info(1);
+	});
+	$('.image1').click(function () {
+		info(2);
+	});
+	$('.image2').click(function () {
+		info(3);
+	});
+	$('.image3').click(function () {
+		info(4);
+	});
+
+	function info(num) {
+		var Escultura = Parse.Object.extend("Sculture");
+		var query = new Parse.Query(Escultura);
+		var auxname;
+		pj = num;
+		if (num === 1) {
+			auxname = 'Perro Fernando';
+			img='url("/img/divrope.jpg")';
+		}
+		if (num === 2) {
+			auxname = 'Venus de Milo';
+			img='url("/img/divvenus.jpg")';
+		}
+		if (num === 3) {
+			auxname = 'El Pensador';
+			img='url("/img/divpensador.jpg")';
+		}
+		if (num === 4) {
+			auxname = 'Discóbolo';
+			img='url("/img/divdisco.jpg")';
+		}
+		query.equalTo('name', auxname);
+		query.first({
+			success: function(data){
+				$('.image-profile').css('background-image',img);
+				$('.nombrejugador-span').empty();
+				$('.nombrejugador-span').append(data.get('name'));
+				$('.descripcionjugador-span').empty();
+				$('.descripcionjugador-span').append(data.get('description'));
+			},
+			error: function(error) {
+				alert('No conectado a internet')
+			}
+	});
 	}
 
 	// Evento submit para el login
@@ -85,6 +151,8 @@ var divApp = (function(){
 		});
 	}
 
+
+
 	/*----------------------------------------------*/
 
 	function game(playerName) {
@@ -136,12 +204,29 @@ var divApp = (function(){
 		//initaudio.play();
 
 		//Funcion para crear divs
-		function creaDivs(username, life, score, left, top){
+		function creaDivs(username, pj, life, score, left, top){
+			var img;
+			if (pj === 1) {
+				img='url("/img/divrope.jpg")';
+			}
+			if (pj === 2) {
+				img='url("/img/divvenus.jpg")';
+			}
+			if (pj === 3) {
+				img='url("/img/divpensador.jpg")';
+			}
+			if (pj === 4) {
+				img='url("/img/divdisco.jpg")';
+			}
+
+
 			if(username === nickname){
-				$('div.battlefield').append($('<div style="z-index:999; background:darkcyan; cursor:pointer" class="divcito" id="'+ nickname +'"><div id="text"><h3>'+nickname+'</h3><p class="life">100</p><p class="score">'+ score +'</p><p>Arrastrame!</p></div></div>'));
+				var div = $('<div style="z-index:999;  cursor:pointer" class="divcito" id="'+ nickname +'"></div>').css('background-image',img).css('border-width','2px').css('border-color','red');
+				$('div.battlefield').append(div);
 			}
 			else{
-				$('div.battlefield').append($('<div class="divcito" id="'+ username +'"><div id="text"><h3>'+username+'</h3><p class="life">' + life + '</p><p class="score">'+ score +'</p><p>ENEMY! TARGET!</p></div></div>'));
+				var div = $('<div style="background-image:'+ img +';" class="divcito" id="'+ username +'"></div>').css('background-image',img);
+				$('div.battlefield').append(div);
 			}
 			$('.divcito#'+username).css('left',left).css('top',top);
 		}
@@ -163,30 +248,30 @@ var divApp = (function(){
 
 						// en caso de que el puntero esté fuera del tablero
 						// a la izquierda
-						if (posX < (battleX + 50)) {
-							posX = battleX + 50;
+						if (posX < (battleX + 100)) {
+							posX = battleX + 100;
 						}
 
 						// a la derecha
-						if (posX > (battleX + 950)) {
-							posX = battleX + 950;
+						if (posX > (battleX + 900)) {
+							posX = battleX + 900;
 						}
 
 						// arriba
-						if (posY < (battleY + 50)) {
-							posY = battleY + 50;
+						if (posY < (battleY + 100)) {
+							posY = battleY + 100;
 						}
 
 						// abajo
-						if (posY > (battleY + 550)) {
-							posY = battleY + 550;
+						if (posY > (battleY + 500)) {
+							posY = battleY + 500;
 						}
 
 						// posicionar el div del jugador
-						$('.divcito#'+nickname).css('left',posX - 50).css('top',posY - 50);
+						$('.divcito#'+nickname).css('left',posX - 100).css('top',posY - 100);
 						
 						// emitir evento de movimiento
-						socket.emit('moviendo div', nickname, posX - 50 - battleX, posY - 50 - battleY);
+						socket.emit('moviendo div', nickname, posX - 100 - battleX, posY - 100 - battleY);
 					}
 				})
 
@@ -209,11 +294,11 @@ var divApp = (function(){
 			socket.emit('ping',d.getSeconds(),d.getMilliseconds());
 
 			// Avisar al server que se ingreso al juego
-			socket.emit('ingresar', nickname);
+			socket.emit('ingresar', nickname, pj);
 
 			// Agregar el div propio para jugar
 			//$('div#display').append($('<div style="z-index:999; background:darkcyan; cursor:pointer" class="divcito" id="'+ nickname +'"><div id="text"><h3>'+nickname+'</h3><p class="life">100</p><p>Haceme clic</p><p>y arrastrá</p></div></div>'));
-			creaDivs(nickname,100,0,300,300);
+			creaDivs(nickname,pj,100,0,300,300);
 			
 			// Darle movimiento con el click y arrastrar
 			addMouseFunction();
@@ -265,8 +350,12 @@ var divApp = (function(){
 
 		}
 
+		$('button#ingresar').click(function(){
+			showPage('selectplayer');
+		})
+
 		// Cuando se ingresa el nombre de usuario en el formulario de la pantalla principal
-		$('button#ingresar').click(function() {
+		$('button#jugarya').click(function() {
 			
 			// Controlar que no exista nadie con el mismo nickname y mostrar error
 			if (conectados.indexOf(nickname) !== -1) {
@@ -284,7 +373,7 @@ var divApp = (function(){
 					battleY = $('.battlefield').offset().top;
 
 				});
-
+				showPage('display');
 				prepararInicio();
 			}
 		});
@@ -323,7 +412,7 @@ var divApp = (function(){
 		}
 
 		// Recepción de todos los otros jugadores por parte del servidor
-		socket.on('inicio', function(users, left, top, lifes, scores, timeLeft) {
+		socket.on('inicio', function(users, pjs, left, top, lifes, scores, timeLeft) {
 			
 			// Llenar la lista de demás jugadores
 			conectados = users;
@@ -338,7 +427,7 @@ var divApp = (function(){
 			for (var i = 0; i < users.length; i++) {
 				//$('div#display').append($('<div class="divcito" id="'+ users[i] +'"><div id="text"><h3>'+users[i]+'</h3><p class="life">'+ lifes[i] +'</p><p>Se mueve solo</p><p>:)</p></div></div>'));
 				if (lifes[i] > 0) { 
-					creaDivs(users[i],lifes[i],scores[i],left[i],top[i]);
+					creaDivs(users[i],pjs[i],lifes[i],scores[i],left[i],top[i]);
 				}
 				
 				//agregar a la lista de conectados, junto a la vida y puntaje
@@ -355,7 +444,7 @@ var divApp = (function(){
 		});
 
 		//nuevo usuario conectado
-		socket.on('nuevo user', function(user) {
+		socket.on('nuevo user', function(user, pj) {
 			
 			// Agregar nuevo usuario a la lista de conectados
 			conectados.push(user);
@@ -363,7 +452,7 @@ var divApp = (function(){
 
 			// Agregar div de nuevo usuario
 			//$('div#display').append($('<div class="divcito" id="'+ user +'"><div id="text"><h3>'+user+'</h3><p class="life">100</p><p>Se mueve solo</p><p>:)</p></div></div>'));
-			creaDivs(user,100,0,300,300);
+			creaDivs(user,pj,100,0,300,300);
 			//$('.divcito#'+user).css('left','50px').css('top','50px');
 
 			// Agregar a la lista de usuarios conectados, junto a la vida y puntaje
@@ -525,10 +614,10 @@ var divApp = (function(){
 
 			// Realizar una animación loca de muerte
 			$('.dying#' + herido).animate({
-				left : '-=50px',
-				top : '-=50px',
-				width : '200px',
-				height : '200px',
+				left : '-=100px',
+				top : '-=100px',
+				width : '400px',
+				height : '400px',
 				'background-color' : 'black',
 				opacity : 0,
 			},500);
@@ -556,8 +645,8 @@ var divApp = (function(){
 		}
 
 		// escuchar que alguien revive, mostrar el div, y en caso de ser uno mismo, agregar el movimiento
-		socket.on('reviviendo',function(username,left,top,score){
-			creaDivs(username,100,score,left,top);
+		socket.on('reviviendo',function(username,pj,left,top,score){
+			creaDivs(username,pj,100,score,left,top);
 			if(username === nickname){
 				addMouseFunction();
 			}
@@ -621,7 +710,6 @@ var divApp = (function(){
 			var relation = currentUserData.relation('unlockedSculture');
 			relation.query().count({
 				success: function(count) {
-					alert(count);
 					if (count) {
 						showPerro();
 					}
@@ -633,7 +721,7 @@ var divApp = (function(){
 		};
 
 		function showPerro() {
-			$('div.doge').prop('disabled', false);
+			$('button.doge').prop('disabled', false);
 		}
 	}
 
