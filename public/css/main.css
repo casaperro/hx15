@@ -15,6 +15,11 @@ div#login {
 div#login h1 {
 	font-size: 55px;
 	font-weight: bold;
+	color: white;
+}
+
+div#login h3 {
+	color: white;
 }
 
 div#nickname {
@@ -103,11 +108,17 @@ div.battlefield {
 }
 
 div.image-profile {
+	background-image: url('/img/mark.jpg');
 	background-size: 100% auto;
 }
 
 button:disabled {
 	opacity: .5;
+}
+
+div#selectplayer {
+	background-image: url('/img/panteon.jpg');
+	background-size: 100% auto;
 }
 
 div#selectplayer .image {
@@ -245,7 +256,7 @@ div#results {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: url('/img/end.jpg');
+	background: url('/img/museum.jpg');
 	background-size: 100% 100%;
 }
 
