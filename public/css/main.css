@@ -5,6 +5,11 @@ body {
 	overflow: hidden;
 }
 
+div#login {
+	height: 100vh;
+	width: 100vw;
+}
+
 div#nickname {
 	height: 100vh;
 	width: 100vw;
@@ -58,17 +63,6 @@ div#nickname div#form input#nickInput {
 
 div#nickname div#form input#nickInput:focus {
 	outline: none;
-}
-
-div#nickname div#form button#ingresar,
-div#resultsMedio button#volverAJugar,
-div#nickname button.button {
-	background: darkcyan;
-	box-shadow: 0px 0px 2px 1px darkcyan;
-	color: white;
-	padding: 5px;
-	font-weight: bold;
-	border: none;
 }
 
 p#error {
