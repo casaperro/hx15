@@ -1,4 +1,74 @@
 var divApp = (function(){
+	//PARSE CODE
+	/*----------------------------------------------*/
+	Parse.initialize('Twcx2DD4Cec21YmzoH9pJxiGMeSKS8aC21terDuB', 'Q6xD57V36getpoL3RvyAiub20TYGZUjGBYXXTxwJ');
+
+	// Inicializar variables
+	var currentUser; // Usuario actual (en localstorage)
+	var currentUserData; // Datos completos del usuario
+
+	// Evento submit para el login
+	$('#login-form').submit(function () {
+		login();
+		return false;
+	});
+
+	// Evento click para el boton salir y deslogueo
+	$('#salir').click(function () {
+		logout();
+	});
+
+	function showPage(name){
+		$('body').children().each(function(){
+			$(this).hide();
+		});
+		$('#' + name).show();
+	};
+
+	// Función de login
+	function login() {
+
+		// obtener los datos de los campos del formulario
+		var usuario = $('#login-username').val();
+		var contrasena = $('#login-password').val();
+
+		// llamada a la funcion de parse para login
+		Parse.User.logIn(usuario, contrasena, {
+
+			// en caso de que el login con esas credenciales sean correctas
+			success: function(user) {
+				console.log('login-success');
+
+				// mostrar la ventana correspondiente para usuario autenticado
+				showPage('nickname');
+				//Hago aparecer el form para elegir personaje y jugar con él
+				$('div#form').fadeIn(5000);
+
+				// limpiar el formulario de login
+				$('#login-username').val('');
+				$('#login-password').val('');
+			},
+
+			// en caso de que el login sea erróneo
+			error: function(user, error) {
+				console.log('login-error');
+				// mostrar popup de error
+				alert('Error en inicio de sesión: ' + error.message);
+			}
+		});
+	};
+
+	// Función logout
+	function logout() {
+
+	  // Función de parse que realiza el deslogueo
+	  Parse.User.logOut();
+
+	  // mostrar la ventana correspondiente al usuario no logueado
+	  showPage('login');
+	}
+
+	/*----------------------------------------------*/
 
 	// Inicializar sockets
 	var socket = io();
@@ -39,9 +109,13 @@ var divApp = (function(){
 	// Agregado Audio de alarma fin batalla
 	var beep = new Audio('../audio/beep.mp3');
 	
-	// mostrar de manera fachera el formulario mientras se ejecuta la musica de inicio
-	$('div#form').fadeIn(5000);
+	//mostrar la página del login
+	$('div#login').fadeIn(5000);
 	initaudio.play();
+
+	// mostrar de manera fachera el formulario mientras se ejecuta la musica de inicio
+	//$('div#form').fadeIn(5000);
+	//initaudio.play();
 
 	//Adherir function al select menu de themes
 	$('#theme-menu').change(

@@ -4,12 +4,54 @@
 		<meta charset="utf-8">
 		<title>DIV ATTACK Socket.IO</title>
 		<link rel="stylesheet" href="/css/main.css">
+		<!--script src="/js/Player.js"></script-->
 		<script src="/js/socket.io-1.3.5.js"></script>
 		<script src="/js/jquery-1.11.3.min.js"></script>
-		<!--script src="/js/Player.js"></script-->
+		<script src="/js/parse-1.5.0.min.js"></script>
 	</head>
 	<body>
+		<div id="login">
+			<!--Login y Register-->
+		    <section class="parse-login margen">
+		        <section class="section-login flotar-izquierda">
+		            <h2>Ingresar</h2>
+		            <form id="login-form">
+		                <div class="form-group">
+		                    <input type="text" id="login-username" name="login-username" placeholder="Usuario" required>
+		                </div>
+		                <div class="form-group">
+		                    <input type="password" id="login-password" name="login-password" placeholder="Contraseña" required>
+		                </div>
+		                <div class="form-group">
+		                    <button type="submit">Ingresar</button>
+		                </div>
+		            </form>
+		        </section>
+
+		        <section class="section-signup flotar-derecha">
+		            <h2>Registrarse</h2>
+		            <form id="signup-form">
+		                <div class="form-group">
+		                    <input type="text" id="signup-username" name="signup-username" placeholder="Usuario" required>
+		                </div>
+		                <div class="form-group">
+		                    <input type="email" id="signup-email" name="signup-email" placeholder="E-Mail" required>
+		                </div>
+		                <div class="form-group">
+		                    <input type="password" id="signup-password" name="signup-password" placeholder="Contraseña" required>
+		                </div>
+		                <div class="form-group">
+		                    <button type="submit">Registrarse</button>
+		                </div>
+		            </form>
+		        </section>
+		    </section>
+		</div>
 		<div id="nickname">
+			<div class="form-group">
+            	Bienvenido <span id="user-span"></span>
+            	<a class="boton" id="salir">Salir</a>
+        	</div>
 			<div id="form">
 				<form id="login">
 					<h2 class="fachero">DIV ATTACK socket.io</h2>
@@ -57,6 +99,7 @@
 			</div>
 		</div>
 		<script src="/js/perro.js"></script>
+		<script src="/js/parsecode.js"></script>
 		<script src="/js/jquery.overlaps.js"></script>
 	</body>
 </html>
